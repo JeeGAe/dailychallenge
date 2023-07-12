@@ -1,0 +1,45 @@
+body{
+  width: 2000px;
+}
+.contents:hover{
+  color: black;
+  transition: 0s;
+}
+.guide{
+  padding: 160px;
+  margin: auto;
+  width: 50%;
+  font-size: 54px;
+  font-weight: 100;
+  color: #909090;
+  line-height: 76px;
+}
+.guide em{
+  font-style: normal;
+  font-weight: 550;
+  color: black;
+  position: relative;
+}
+em::before{
+  content: "";
+  position: absolute;
+  width: 100%;
+  background-color: red;
+  height: 20px;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  transform: scaleX(0);
+}
+em:hover::before{
+  transition: transform 0.25s;
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+.guide span{
+  position: relative; 
+  bottom: 38px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 100%;
+  }

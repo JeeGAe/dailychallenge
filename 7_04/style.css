@@ -1,0 +1,134 @@
+
+body{
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+#photo-container{
+  width: 500px;
+  height: 250px;
+  margin: 100px auto;
+  overflow: hidden;
+}
+#photos{
+  width: 2500px;
+  height: 100%;
+  cursor: pointer;
+
+  display: flex;
+  transition: all 1s;
+
+}
+.photo{
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+  background-size: cover;
+}
+.photo:nth-child(1) {
+  background: url("https://media.istockphoto.com/photos/forest-wooden-table-background-summer-sunny-meadow-with-green-grass-picture-id1353553203?b=1&k=20&m=1353553203&s=170667a&w=0&h=QTyTGI9tWQluIlkmwW0s7Q4z7R_IT8egpzzHjW3cSas=") no-repeat center;
+}
+.photo:nth-child(2) {
+  background: url("https://prod-virtuoso.dotcmscloud.com/dA/188da7ea-f44f-4b9c-92f9-6a65064021c1/previewImage/PowerfulReasons_hero.jpg") no-repeat center;
+}
+.photo:nth-child(3) {
+  background: url("http://file.instiz.net/data/file/20121125/5/6/0/5609249762358c2bcb65a46580549c99") no-repeat center;
+}
+.photo:nth-child(4) {
+  background: url("https://s1.pearlcdn.com/KR/Upload/Community/434174d044320230412231123488.jpg") no-repeat center;
+}
+.photo:nth-child(5){
+  background: url('https://www.institutostrom.org/wp-content/uploads/2018/04/NZ.jpg') no-repeat center;
+}
+
+#selection{
+  width: 300px;
+  height: 50px;
+  margin: 0px auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.options{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-left: 10px;
+  background-color: lightgreen;
+  box-shadow: 1px 1px 5px 2px lightgreen;
+  user-select: none; 
+  transition: all 0.7s;
+}
+.options:hover{
+  background-color: greenyellow;
+  cursor: pointer;
+}
+.options.active{
+  width: 50px;
+}
+/*1  13번 연습문제
+body{
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+#box-container{
+  width: 100%;
+  height: 100vh;
+  background-color: lightsalmon;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.box{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: lightpink;
+  transition: all 0.5s;
+  margin-left: 20px;
+  user-select: none;
+
+}
+.up{
+ margin-bottom : 20px;
+}  */
+/*  14번 연습문제
+body{
+  margin: 0;
+  padding: 0;
+}
+#menu-container{
+  width: 500px;
+  margin: 100px auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.menu{
+  width: 100%;
+  flex: 1;
+  margin-bottom: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.title{
+  background: lightgray;
+  padding: 10px;
+}
+.info{
+  padding: 10px;
+  background: lightgoldenrodyellow;
+  color: goldenrod;
+  font-weight: bold;
+  display: none;
+  transition: all 0.5s;
+}
+.open{
+  display: block;
+} */

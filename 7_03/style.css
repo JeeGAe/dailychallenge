@@ -1,0 +1,84 @@
+/* 1번 연습문제
+.random-container{
+  display: grid;
+  width: 500px; height: 500px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+.tile{
+  border: 1px solid black;
+} */
+/* 2번 연습문제
+.photo{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  display: none;
+}
+.show{
+  display: block;
+} */
+/* 3번 연습문제
+#counting{
+  font-size: 8rem;
+  font-weight: bold;
+  color: tomato;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+} */
+
+#text-container{
+  font-size: 3rem;
+  font-weight: bold;
+  color: tomato;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+/* 5번 연습문제
+.circle{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: peru;
+  background-image: url('./img/dog-7962236_640.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+/* 11번 연습문제
+body{
+  margin: 0; padding: 0;
+}
+.container{
+  width: 30%; height: 100vh;
+  display: flex;
+  flex-direction : column;
+  position: absolute;
+  left: -30%;
+  transition: all .7s ease-in-out;
+}
+.menu{
+  width: 100%;
+  background-color: darkcyan;
+  border: 1px solid rgb(255, 73, 216);
+  flex : 1;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: lightgoldenrodyellow;
+} */

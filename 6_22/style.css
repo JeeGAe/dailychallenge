@@ -1,0 +1,251 @@
+html{
+  margin: 0; padding: 0;
+}
+body{
+  width: 100vw;
+  height: 100vh;
+}
+.container{
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://assets.nicepagecdn.com/d2cc3eaa/3955079/images/34.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-width: 1100px;
+  height: 90%;
+  color: #fff;
+}
+.bottom-side{
+  background-color: rgb(49, 49, 49);
+  width: 100%;
+  height: 10%;
+}
+.container header h1{
+  margin-top: 0;
+  font-size: 60px;
+  text-align: center;
+  padding-top: 60px;
+  position: relative;
+  animation-name: moveh1;
+  animation-duration:2s;
+}
+.container header p{
+  font-size: 20px;
+  margin: auto;
+  text-align: center;
+  width: 760px;
+  margin-bottom: 60px;
+  position: relative;
+  animation-name: movep;
+  animation-duration:2s;
+}
+.container main nav{
+  text-align: center;
+}
+.container main nav ul{
+  padding: 0;
+}
+.container main nav ul li{
+  list-style: none;
+  display: inline-block;
+}
+.container main nav ul li a{
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: none;
+}
+.view-menu{
+  margin: 10px;
+  padding: 15px 50px;
+  border-radius: 25px;
+  background-color: white;
+  color: black;
+}
+.left-menu{
+  position: relative;
+  animation-name: moveview;
+  animation-duration:2s;
+}
+.view-menu:hover{
+  background-color: orangered;
+}
+.order-online{
+  margin: 10px;
+  padding: 14px 49px;
+  border-radius: 25px;
+  border: 1px solid white;
+  color: white;
+}
+.right-menu{
+  position: relative;
+  animation-name: moveorder;
+  animation-duration:2s;
+}
+.order-online:hover{
+  background-color: orangered;
+  border: 1px solid orangered;
+}
+aside{
+  text-align: center;
+  position: relative;
+  animation-name: movefreepik;
+  animation-duration:2.3s;
+}
+aside p, aside a{
+  display: inline-block;
+  font-size: 18px;
+}
+aside a{
+  color: white;
+  text-decoration-color: white;
+  text-decoration-thickness: 2px;
+}
+aside a:hover{
+  color:rgba(255, 255, 255, 0.8);
+  text-decoration-color: rgba(255, 255, 255, 0.8);
+  text-decoration-thickness: 1px;
+}
+.container section{
+  text-align: center;
+  position: relative;
+  animation-name: movemenu;
+  animation-duration: 2s;
+}
+.container section article{
+  display: inline-block;
+  background-color: orangered;
+  width: 261.75px;
+  height: 222px;
+  text-align: center;
+  position: relative;
+  margin: 10px;
+  margin-top: 30px;
+  animation-name: fademenu;
+  animation-duration: 2s;
+}
+.container section article img{
+  margin-top: 50px;
+  width: 70px;
+  height: 70px;
+}
+.container section article h6{
+  text-align: center;
+  font-size: 20px;
+  margin-top: 15px;
+}
+
+@media screen and (max-width: 1200px) {
+  .container{
+    min-width: 100px;
+  }
+  .container section article{
+    width: 211.75px;
+    height: 180px;
+  }
+  .container section article img{
+    margin-top: 30px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .container{
+    min-width: 340px;
+    background-size: contain;
+  }
+  .container header p{
+    width: 340px;
+  }
+  .container main nav ul li{
+    display: block;
+    margin: 50px 0;
+  }
+  .right-menu{
+    text-align: left;
+    padding-left: 35%;
+  }
+  .left-menu{
+    text-align: left;
+    padding-left: 20%;
+  }
+  .container section article{
+    width: 340px;
+    height: 163px;
+  }
+  .container section article img{
+    margin-top: 30px;
+  }
+}
+
+@keyframes moveh1{
+  from{
+    color: rgba(255, 255, 255, 0.1);
+    right: 300px;
+    transform: scale(0.1);
+  }
+  to{
+    font-size: 60px;
+    color: #fff;
+    right: 0px;
+    transform: scale(1);
+  }
+}
+@keyframes movep{
+  from{
+    color: rgba(255, 255, 255, 0.1);
+    left: 300px;
+    transform: scale(0.1);
+  }
+  to{
+    color: #fff;
+    left: 0px;
+    transform: scale(1);
+  }
+}
+@keyframes moveview{
+  from{
+    left: 300px;
+    transform: scale(0.1);
+  }
+  to{
+    left: 0;
+    transform: scale(1);
+  }
+}
+@keyframes moveorder{
+  from{
+    right: 300px;
+    transform: scale(0.1);
+  }
+  to{
+    right: 0;
+    transform: scale(1);
+  }
+}
+@keyframes movefreepik{
+  from{
+    top: 400px;
+    color: rgba(255, 255, 255, 0.1);
+    transform: scale(0.1);
+  }
+  to{
+    top: 0;
+    color: rgba(255, 255, 255, 1);
+    transform: scale(1);
+  }
+}
+@keyframes movemenu{
+  from{
+    transform: scale(0.1);
+    top: 400px;
+  }
+  to{
+    transform: scale(1);
+    top: 0;
+  }
+}
+@keyframes fademenu{
+  from{
+    background-color: rgba(255, 69, 0, 0.1);
+  }
+  to{
+    background-color: rgba(255, 69, 0, 1);
+  }
+}
