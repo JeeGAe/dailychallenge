@@ -1,0 +1,204 @@
+// 연습문제 1
+// @mixin set-button($height, $pd-left, $pd-right, $fs){
+//   height: $height;
+//   padding-left: $pd-left;
+//   padding-right: $pd-right;
+//   font-size: $fs;
+// }
+// @mixin hover-button($color, $change-color){
+//   .#{$color}{
+//     background: $color;
+//     &:hover{
+//       background: $change-color;
+//     }
+//   }
+// }
+
+// .Button{
+//   all: unset;
+//   color: white;
+//   cursor: pointer;
+//   border-radius: 5px;
+//   font-weight: bold;
+//   margin-left: 10px;
+//   display: inline-flex;
+//   align-items: center;
+//   justify-content: center;
+
+//   &:hover{
+//     opacity: 0.7;
+//   }
+// }
+
+// .large{
+//   @include set-button(70px, 15px, 15px, 1.2rem);
+// }
+// .medium{
+//   @include set-button(50px, 10px, 10px, 1rem);
+// }
+// .small{
+//   @include set-button(30px, 5px, 5px, 0.8rem);
+// }
+
+// @include hover-button(blue, skyblue);
+// @include hover-button(tomato, lightsalmon);
+// @include hover-button(grey, lightgrey);
+
+// @each $button-color, $change-color in (blue : skyblue, tomato: lightsalmon, grey: lightgray){
+//   .#{""+$button-color}{
+//     background: $button-color;
+//     &:hover{
+//       background: $change-color;
+//     }
+//   }
+// }
+
+// .fullWidth{
+//   width: 100%;
+//   margin-left: 0px;
+//   margin-top: 10px;
+//   margin-bottom: 10px;
+// } 
+
+// 연습문제 2
+// $primary-padding: 5px;
+
+// @mixin set-display($display){
+//   display: $display;
+// }
+// @mixin set-font($font-size: 1rem, $font-weight: unset){
+//   font: {
+//     size: $font-size;
+//     weight: $font-weight;
+//   }
+// }
+// @mixin width-height($width: auto, $height: auto){
+//   width: $width;
+//   height: $height;
+// }
+// @mixin flex-justify($justify){
+//   display: flex;
+//   justify-content: $justify;
+//   align-items: center;
+// }
+
+// .modal{
+//   @include width-height(500px);
+//   margin: 100px;
+//   border: 1px solid tan;
+//   padding: $primary-padding * 2;
+//   text-align: center;
+// }
+
+// .open{
+//   @include set-display(block);
+// }
+// .close{
+//   @include set-display(none);
+// }
+
+// @each $tag in header, body, footer{
+//   .#{$tag}{
+//     padding: $primary-padding;
+//   }
+// }
+
+// .header{
+//   @include set-font(1.2rem, bold);
+// }
+
+// .body{
+//   @include set-font(0.9rem);
+//   margin: 20px;
+//   input{
+//     @include width-height(60%, 30px);
+//     border: 1px solid lightgray;
+//     border-radius: 5px;
+//     margin-bottom: 10px;
+//   }
+// }
+
+// .footer{
+//   @include flex-justify(flex-end);
+// }
+
+$primary-color: white;
+$secondary-color: peru;
+@mixin set-XYsize($x: auto, $y: auto){
+  width: $x;
+  height: $y;
+}
+@mixin set-fix(){
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+}
+@mixin flex-justify($justify: unset){
+  display: flex;
+  justify-content: $justify;
+  align-items: center;
+}
+@mixin set-font($size: 1rem, $weight: unset){
+  font-size: $size;
+  font-weight: $weight;
+  text-align: center;
+}
+@mixin box-shadow-color($color){
+  box-shadow: 1px 1px 5px 5px $color;
+}
+@mixin set-overflow($overflow){
+  overflow: $overflow;
+}
+
+.header{
+  @include set-XYsize(100%, 70px);
+  @include set-fix;
+  @include box-shadow-color(darkgray);
+  background: $primary-color;
+  z-index: 1;
+  @include flex-justify(flex-end);
+}
+.sort-btns{
+  all: unset;
+  @include set-XYsize(100px, 50px);
+  background: $secondary-color;
+  border-radius: 10px;
+  cursor: pointer;
+  color: $primary-color;
+  @include set-font(1rem, bold);
+  margin-right: 10px;
+  &:hover{
+    opacity: 0.8;
+  }
+}
+.root{
+  @include set-XYsize(60%);
+  margin: 100px auto;
+  @include flex-justify(center);
+  flex-wrap: wrap;
+}
+
+.product{
+  flex:200px;
+  @include set-XYsize(auto, 500px);
+  @include box-shadow-color($secondary-color);
+  color: $primary-color;
+  background: $secondary-color;
+  margin: 10px;
+  @include set-overflow(hidden);
+  &-img{
+    @include set-XYsize(100%, 180px);
+    @include set-overflow(hidden);
+  }
+  &-img img{
+    @include set-XYsize(100%, 100%);
+  }
+  &-name{
+    @include set-font(1.1rem, bold);
+  }
+  &-description{
+    @include set-font(0.9rem, 400);
+    margin-top: 15px;
+  }
+}
