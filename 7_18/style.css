@@ -1,0 +1,193 @@
+html {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://assets.nicepagecdn.com/d2cc3eaa/3955079/images/34.jpg");
+  background-size: cover;
+  height: 100vh;
+}
+
+.container {
+  text-align: center;
+}
+
+header {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  color: white;
+  max-width: 600px;
+}
+header h1 {
+  -webkit-animation-name: rightmove;
+          animation-name: rightmove;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+  position: relative;
+  font-size: 3rem;
+  font-weight: bold;
+}
+@-webkit-keyframes rightmove {
+  from {
+    right: -300px;
+    transform: scale(0.1);
+  }
+  to {
+    right: 0px;
+    transform: scale(1);
+  }
+}
+@keyframes rightmove {
+  from {
+    right: -300px;
+    transform: scale(0.1);
+  }
+  to {
+    right: 0px;
+    transform: scale(1);
+  }
+}
+header p {
+  -webkit-animation-name: leftmove;
+          animation-name: leftmove;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+  position: relative;
+  font-size: inherit;
+  font-weight: bold;
+}
+@-webkit-keyframes leftmove {
+  from {
+    left: -300px;
+    transform: scale(0.1);
+  }
+  to {
+    left: 0px;
+    transform: scale(1);
+  }
+}
+@keyframes leftmove {
+  from {
+    left: -300px;
+    transform: scale(0.1);
+  }
+  to {
+    left: 0px;
+    transform: scale(1);
+  }
+}
+
+nav {
+  -webkit-animation-name: falsemove;
+          animation-name: falsemove;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+  position: relative;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: white;
+  margin-top: auto;
+  margin-bottom: 50px;
+}
+@-webkit-keyframes falsemove {
+  from {
+    transform: scale(0.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes falsemove {
+  from {
+    transform: scale(0.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+nav button:nth-child(1) {
+  border-radius: 15px;
+  padding: 10px 30px;
+  border: 2px solid white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  background-color: white;
+  color: black;
+  margin-right: 10px;
+}
+nav button:nth-child(1):hover {
+  background-color: orangered;
+  border: 2px solid orangered;
+}
+nav button:nth-child(2) {
+  border-radius: 15px;
+  padding: 10px 30px;
+  border: 2px solid white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+}
+nav button:nth-child(2):hover {
+  background-color: orangered;
+  border: 2px solid orangered;
+}
+nav p {
+  margin-top: 20px;
+  margin-bottom: auto;
+}
+nav p a {
+  text-decoration: underline;
+  color: white;
+}
+nav p a:hover {
+  color: orangered;
+}
+
+main section {
+  -webkit-animation-name: bottommove;
+          animation-name: bottommove;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+@-webkit-keyframes bottommove {
+  from {
+    bottom: -300px;
+    transform: scale(0.1);
+  }
+  to {
+    bottom: 0px;
+    transform: scale(1);
+  }
+}
+@keyframes bottommove {
+  from {
+    bottom: -300px;
+    transform: scale(0.1);
+  }
+  to {
+    bottom: 0px;
+    transform: scale(1);
+  }
+}
+main section article {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  flex-direction: column;
+  width: 200px;
+  height: 200px;
+  background-color: orangered;
+}
+main section article figure img {
+  width: 50px;
+  height: 50px;
+}
+main section article figure figcaption {
+  color: white;
+}/*# sourceMappingURL=style.css.map */
