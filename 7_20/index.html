@@ -10,10 +10,15 @@
 </head>
 <body>
   <button id="basic-open-btn" class="open-btn">업로드</button>
+  <div class="contents-container"></div>
   <div class="container">
     <div class="modal-window">
-      <div id="file-upload">fileupload</div>
-      <button class="close-btn">전송</button>
+      <form action="POST" id="form">
+        <div id="file-upload">fileupload</div>
+        <input type="text" placeholder="제목" name="title">
+        <input type="textarea" placeholder="내용" name="desc">
+        <button class="submit-btn">전송</button>
+      </form>
     </div>
   </div>
   <script src="./app.js"></script>
