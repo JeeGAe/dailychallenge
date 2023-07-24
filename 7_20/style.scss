@@ -66,7 +66,24 @@ nav{
   display: flex;
   width: 100%;
   height: 50px;
-  background-color: rgba(66, 66, 66, 0.3);
+  justify-content: space-between;
+  align-items: center;
+  .menu{
+    text-decoration: none;
+    color: white;
+    background-color: rgb(0, 186, 211);
+    border-radius: 10px;
+    padding: 5px 20px;
+    margin: 5px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    &:hover{
+      background-color: rgb(0, 125, 141);
+    }
+  }
+  .dropdown-btn{
+    display: none;
+  }
 }
 .open-btn{
   color: white;
@@ -74,11 +91,11 @@ nav{
   border-radius: 10px;
   width: 100px;
   border: none;
-  background-color: darkgoldenrod;
+  background-color: rgb(0, 186, 211);
   font-size: 1.2rem;
   margin: 9px;
   &:hover{
-    background-color: rgba(184, 135, 11, 0.664);
+    background-color: rgb(0, 125, 141);
   }
 }
 #file-upload{
@@ -125,5 +142,37 @@ form{
     margin: 5px;
     margin-left: 30px;
     background-color: rgba(255, 255, 255, .7);
+  }
+}
+#loading-bar{
+  justify-content: center;
+}
+
+@media (max-width: 480px){
+  nav{
+    .menu{
+      display: none;
+    }
+    .dropdown-btn{
+      display: block;
+      span{
+        font-size: 2rem;
+        cursor: pointer;
+        margin-right: 10px;
+        margin-top: 5px;
+        color: rgb(0, 186, 211);
+      }
+    }
+  }
+}
+.dropdown-menu{
+  display: block;
+  //background-color: rgba(66, 66, 66, 0.3);
+  height: auto;
+  div{
+    display: flex;
+    justify-content: end;
+    cursor: pointer;
+    margin-right: 10px;
   }
 }

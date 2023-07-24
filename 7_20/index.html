@@ -9,10 +9,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <button id="basic-open-btn" class="open-btn">업로드</button>
+  <nav>
+    <button id="basic-open-btn" class="open-btn">업로드</button>
+    <div>
+      <a href="#" class="menu">찾기</a>
+      <a href="#" class="menu">둘러보기</a>
+      <a href="#" class="menu">설정</a>
+    </div>
+    <div class="dropdown-btn"><span class="material-symbols-outlined">
+      menu
+      </span></div>
+  </nav>
+  
   <div class="contents-container"></div>
   <div class="container">
-    <div class="modal-window">
+    <div id="modal-window" class="modal-window">
       <form action="POST" id="form">
         <div id="file-upload">fileupload</div>
         <input type="text" placeholder="제목" name="title">
