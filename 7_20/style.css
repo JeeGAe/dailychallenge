@@ -1,8 +1,18 @@
+@font-face {
+  font-family: "OAGothic-ExtraBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/OAGothic-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+}
+* {
+  font-family: "OAGothic-ExtraBold";
+}
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-image: url(./img/bg-img.jpg);
+  background-color: rgb(231, 231, 231);
   min-height: 300vh;
   width: 100%;
 }
@@ -35,13 +45,9 @@ body {
   box-shadow: 0 0 0.3rem rgba(255, 255, 255, 0.1);
   justify-content: end;
   flex-direction: column;
+  z-index: 1;
 }
-
-.show {
-  display: flex;
-}
-
-.submit-btn {
+.modal-window .submit-btn {
   all: unset;
   display: block;
   border-radius: 15px;
@@ -49,10 +55,15 @@ body {
   color: white;
   font-size: 1.5rem;
   font-weight: bold;
+  padding-top: 10px;
   margin-bottom: 15px;
 }
-.submit-btn:hover {
+.modal-window .submit-btn:hover {
   background-color: rgba(0, 89, 255, 0.781);
+}
+
+.show {
+  display: flex;
 }
 
 #up-button {
@@ -86,7 +97,7 @@ nav .menu {
   color: white;
   background-color: rgb(0, 186, 211);
   border-radius: 10px;
-  padding: 5px 20px;
+  padding: 10px 20px;
   margin: 5px;
   font-weight: bold;
   font-size: 1.1rem;
@@ -104,6 +115,7 @@ nav .dropdown-btn {
   border-radius: 10px;
   width: 100px;
   border: none;
+  padding: 5px 20px;
   background-color: rgb(0, 186, 211);
   font-size: 1.2rem;
   margin: 9px;
@@ -120,9 +132,10 @@ nav .dropdown-btn {
 .contents-container {
   display: none;
   margin: 50px;
-  margin-top: 200px;
+  margin-top: 100px;
   height: 400px;
   width: 80%;
+  gap: 5px;
   overflow-x: auto;
 }
 .contents-container::-webkit-scrollbar {
@@ -132,8 +145,10 @@ nav .dropdown-btn {
   flex: 0 0 auto;
   width: 300px;
   height: 100%;
-  background-color: beige;
+  background-color: rgb(207, 207, 207);
   overflow: hidden;
+  border-radius: 10px;
+  cursor: pointer;
 }
 .contents-container .content .img-container {
   width: 100%;
@@ -186,4 +201,87 @@ form input {
   justify-content: end;
   cursor: pointer;
   margin-right: 10px;
+}
+
+.content-info {
+  background-color: rgba(0, 0, 0, 0.3);
+  margin: 0 auto;
+  width: 80%;
+  display: flex;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px 5px rgb(53, 53, 53);
+}
+.content-info .content-info-img {
+  display: flex;
+  align-items: center;
+}
+.content-info .content-info-img img {
+  border-radius: 50%;
+  width: 300px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.content-info .content-info-text {
+  color: #fff;
+}
+.content-info .content-info-text p:nth-child(2) {
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.mini-info {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  height: 200px;
+  background-color: rgba(218, 243, 255, 0.534);
+  border-radius: 15px;
+  -webkit-animation: move 1s ease-out;
+          animation: move 1s ease-out;
+}
+.mini-info .mini-close-btn {
+  display: flex;
+  justify-content: end;
+}
+.mini-info .mini-close-btn span {
+  cursor: pointer;
+}
+.mini-info .mini-info-content {
+  display: flex;
+  align-items: center;
+  transition: 0.2s;
+}
+.mini-info .mini-info-content h3 {
+  margin: 0;
+}
+.mini-info .mini-info-content .mini-img {
+  display: flex;
+  justify-content: center;
+}
+.mini-info .mini-info-content .mini-img img {
+  width: 120px;
+  height: 120px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+}
+
+@-webkit-keyframes move {
+  from {
+    transform: translateY(250px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes move {
+  from {
+    transform: translateY(250px);
+  }
+  to {
+    transform: translateY(0);
+  }
 }/*# sourceMappingURL=style.css.map */

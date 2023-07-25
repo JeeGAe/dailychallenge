@@ -1,7 +1,18 @@
+@font-face {
+  font-family: 'OAGothic-ExtraBold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/OAGothic-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+}
+
+*{
+  font-family: 'OAGothic-ExtraBold';
+}
+
 body{
   margin: 0; padding: 0;
   box-sizing: border-box;
-  background-image: url(./img/bg-img.jpg);
+  background-color: rgb(231, 231, 231);
   min-height: 300vh;
   width: 100%;
 }
@@ -27,23 +38,26 @@ body{
   box-shadow: 0 0 .3rem rgba(255, 255, 255, .1);
   justify-content: end;
   flex-direction: column;
+  z-index: 1;
+  .submit-btn{
+    all: unset;
+    display: block;
+    border-radius: 15px;
+    background-color: rgb(0, 110, 255);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-top: 10px;
+    margin-bottom: 15px;
+    &:hover{
+      background-color: rgba(0, 89, 255, 0.781);
+    }
+  }
 }
 .show{
   display: flex;
 }
-.submit-btn{
-  all: unset;
-  display: block;
-  border-radius: 15px;
-  background-color: rgb(0, 110, 255);
-  color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 15px;
-  &:hover{
-    background-color: rgba(0, 89, 255, 0.781);
-  }
-}
+
 #up-button{
   border: none;
   background-color: rgba(0, 0, 0, .3);
@@ -73,7 +87,7 @@ nav{
     color: white;
     background-color: rgb(0, 186, 211);
     border-radius: 10px;
-    padding: 5px 20px;
+    padding: 10px 20px;
     margin: 5px;
     font-weight: bold;
     font-size: 1.1rem;
@@ -91,6 +105,7 @@ nav{
   border-radius: 10px;
   width: 100px;
   border: none;
+  padding: 5px 20px;
   background-color: rgb(0, 186, 211);
   font-size: 1.2rem;
   margin: 9px;
@@ -106,9 +121,10 @@ nav{
 .contents-container{
   display: none;
   margin: 50px;
-  margin-top: 200px;
+  margin-top: 100px;
   height: 400px;
   width: 80%;
+  gap: 5px;
   //display: flex;
   overflow-x: auto;
   &::-webkit-scrollbar{
@@ -118,8 +134,10 @@ nav{
     flex: 0 0 auto;
     width: 300px;
     height: 100%;
-    background-color: beige;
+    background-color: rgb(207, 207, 207);
     overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
     .img-container{
       width: 100%;
       height: 60%;
@@ -174,5 +192,73 @@ form{
     justify-content: end;
     cursor: pointer;
     margin-right: 10px;
+  }
+}
+.content-info{
+  background-color: rgba(0, 0, 0, .3);
+  margin: 0 auto;
+  width: 80%;
+  display: flex;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px 5px rgb(53, 53, 53);;
+  .content-info-img{
+    display: flex;
+    align-items: center;
+    img{
+      border-radius: 50%;
+      width: 300px;
+      object-fit: contain;
+    }
+  }
+  .content-info-text{
+    color: #fff;
+    & p:nth-child(2){
+      font-weight: bold;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+  }
+}
+.mini-info{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  height: 200px;
+  background-color: rgba(218, 243, 255, 0.534);
+  border-radius: 15px;
+  animation: move 1s ease-out;
+  .mini-close-btn{
+    display: flex;
+    justify-content: end;
+    span{
+      cursor: pointer;
+    }
+  }
+  .mini-info-content{
+    display: flex;
+    align-items: center;
+    transition: .2s;
+    h3{
+      margin: 0;
+    }
+    .mini-img{
+      display: flex;
+      justify-content: center;
+      img{
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    } 
+  }
+}
+@keyframes move{
+  from{
+    transform: translateY(250px);
+  }
+  to{
+    transform: translateY(0);
   }
 }

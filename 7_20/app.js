@@ -8,9 +8,11 @@ const contentsContainer = document.querySelector('.contents-container');
 let products = [];
 let index = 0;
 let data = [];
+let isfetching = false;
 
 async function api(){
-  modalWindow.classList.toggle('show');
+  console.log("fetching..");
+  modalWindow.classList.remove('show');
   const loading = document.createElement('div');
   loading.id = 'loading-bar';
   loading.classList.add('show');
@@ -25,8 +27,8 @@ async function api(){
   await productsJson.forEach(json => {
     products.push(json)
   });
-  console.log(products);
-  //console.log("fetching..")
+  return isfetching = true;
+  
   // const response = await fetch("./upload/data.json");
   // const dataJson = await response.json();
 
@@ -83,7 +85,8 @@ function showUpScrollBtn(){
       const upBtn = document.createElement('button');
       upBtn.id = 'up-button';
       //upBtn.style.top = (scrollHeight - 100) + 'px';
-      upBtn.innerHTML = `<span class="material-symbols-outlined">
+      upBtn.innerHTML = `
+      <span class="material-symbols-outlined">
       expand_less
       </span>`
       document.body.append(upBtn);
@@ -94,9 +97,45 @@ function showUpScrollBtn(){
       document.getElementById('up-button').remove();
     }
   }
+  // 상세정보 창이 브라우저 상단에 올 때상세 정보를 알려주는 미니 창
+  if(document.querySelector('.content-info')?.getBoundingClientRect().top >= 50){
+    document.querySelector('.mini-info')?.remove();
+  }
+  if(document.querySelector('.content-info')?.getBoundingClientRect().top < 50){
+    if(document.querySelector('.mini-info') === null && !isfetching){
+      isfetching = true;
+      api().then(() => {
+        if(document.querySelector('#loading-bar')){
+          document.querySelector('#loading-bar').remove();
+        }
+        if(document.querySelector('.mini-info') === null){
+          const miniInfo = document.createElement('div');
+          miniInfo.classList.add('mini-info');
+          const contentId = document.querySelector('.content-info').id;
+          miniInfo.innerHTML = `
+            <div class="mini-close-btn">
+            <span class="material-symbols-outlined dropdown-menu-close-btn">
+            close
+            </span></div>
+            <div class="mini-info-content">
+            <div class="mini-img"><img src="${products[contentId].image_link}"></div>
+            <h3>${products[contentId].name}</h3>
+            </div>
+          `;
+          products = [];
+          contentsContainer.after(miniInfo);
+          const miniCloseBtn = miniInfo.querySelector('span');
+          miniCloseBtn.addEventListener('click', () =>{
+            document.querySelector('.mini-info')?.remove();
+          })
+          isfetching = false;
+        }
+      })
+    }
+  }
 }
 function upScroll(){
-  document.body.scrollIntoView();
+  document.documentElement.scrollIntoView({behavior: "smooth"});
   document.getElementById('up-button').remove();
 }
 function modalDarken(){
@@ -132,7 +171,7 @@ function displayImg(e){
       <img src="${products[index].image_link}" alt="">
     </div>
     <h2>${products[index].name}</h2>
-    <p>${products[index].description}</p>
+    <p>${products[index].product_type}</p>
     `
     contentsContainer.append(contentContainer);
     index++;
@@ -142,7 +181,7 @@ function displayImg(e){
     }else{
       document.body.style.overflow = 'hidden';
     }
-    
+    isfetching = false;
     container.classList.toggle('show');
     products = [];
   })
@@ -190,11 +229,37 @@ function removeDropdownMenu(){
 }
 
 function infoContent(e){
-  let content = e.target;
-  while(content.className !== 'content'){
-    content = content.parentElement;
-    console.dir(content)
+  if(e.target.className !== 'contents-container'){
+    api().then(() => {
+      if(document.querySelector('.content-info')){
+        document.querySelector('.content-info').remove();
+      }
+      let contentId = e.target.closest('.content').id;
+      const contentInfo = document.createElement('div');
+      contentInfo.classList.add('content-info');
+      contentInfo.id = contentId;
+      contentInfo.innerHTML = `
+      <div class="content-info-img">
+      <img src="${products[contentId].image_link}" alt="${products[contentId].name}">
+      </div>
+      <div class="content-info-text">
+      <h2>${products[contentId].name}</h2>
+      <p>${products[contentId].price}$</p>
+      <p>${products[contentId].description}</p>
+      </div>
+      `;
+      products = [];
+      contentsContainer.after(contentInfo);
+      isfetching = false;
+    })
+    if(document.querySelector('#loading-bar')){
+      document.querySelector('#loading-bar').remove();
+    }
   }
+
+  
+  
+  
   
 }
 
