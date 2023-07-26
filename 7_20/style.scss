@@ -1,12 +1,12 @@
 @font-face {
-  font-family: 'OAGothic-ExtraBold';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/OAGothic-ExtraBold.woff2') format('woff2');
-  font-weight: 800;
+  font-family: 'omyu_pretty';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+  font-weight: normal;
   font-style: normal;
 }
 
 *{
-  font-family: 'OAGothic-ExtraBold';
+  font-family: 'omyu_pretty';
 }
 
 body{
@@ -15,6 +15,10 @@ body{
   background-color: rgb(231, 231, 231);
   min-height: 300vh;
   width: 100%;
+  &.dark{
+    background-color: #333;
+    color: #fff;
+  }
 }
 .container{
   position: fixed;
@@ -54,9 +58,7 @@ body{
     }
   }
 }
-.show{
-  display: flex;
-}
+
 
 #up-button{
   border: none;
@@ -82,23 +84,66 @@ nav{
   height: 50px;
   justify-content: space-between;
   align-items: center;
-  .menu{
-    text-decoration: none;
-    color: white;
-    background-color: rgb(0, 186, 211);
-    border-radius: 10px;
-    padding: 10px 20px;
-    margin: 5px;
-    font-weight: bold;
-    font-size: 1.1rem;
-    &:hover{
-      background-color: rgb(0, 125, 141);
+  .menu-bar{
+    margin-top: 10px;
+    gap: 5px;
+    transition: .2s;
+    position: relative;
+    .menu{
+      text-decoration: none;
+      color: white;
+      background-color: rgb(0, 186, 211);
+      border-radius: 10px;
+      padding: 10px 20px;
+      
+      font-weight: bold;
+      font-size: 1.1rem;
+      &:hover{
+        background-color: rgb(0, 125, 141);
+      }
     }
   }
+  .setting-menu{
+    
+    margin: 0 10px;
+    position: relative;
+    right: -300px;
+    transition: .2s;
+    align-items: center;
+    #dark-mode, button{
+      cursor: pointer;
+    }
+    #dark-mode{
+      font-size: 3rem;
+      margin-right: 20px;
+    }
+    button{
+      font-size: 1.1rem;
+      height: 2.1rem;
+      width: 4rem;
+      color: white;
+      background-color: rgb(0, 186, 211);
+      border-radius: 10px;
+      border: none;
+      margin-top: 10px;
+      &:hover{
+        background-color: rgb(0, 125, 141);
+      }
+    }
+  }
+  
   .dropdown-btn{
     display: none;
   }
 }
+.menu-bar{
+  display: flex;
+}
+
+.setting-menu{
+  display: none;
+}
+
 .open-btn{
   color: white;
   font-weight: bold;
@@ -151,6 +196,26 @@ nav{
     }
   }
 }
+.carousel{
+  width: 0;
+  display: none;
+  align-items: center;
+  &-left{
+    left: 5px;
+  }
+  &-right, &-left{
+    position: relative;
+    span{
+      cursor: pointer;
+      font-size: 3rem;
+      &:hover{
+        color: gray;
+      }
+    }
+    
+  }
+  
+}
 
 form{
   display: flex;
@@ -180,6 +245,9 @@ form{
         margin-top: 5px;
         color: rgb(0, 186, 211);
       }
+    }
+    .setting-menu{
+      display: none //!important;
     }
   }
 }
@@ -253,6 +321,12 @@ form{
       }
     } 
   }
+}
+.show{
+  display: flex// !important;
+}
+.hidden{
+  display: none// !important;
 }
 @keyframes move{
   from{

@@ -11,17 +11,30 @@
 <body>
   <nav>
     <button id="basic-open-btn" class="open-btn">업로드</button>
-    <div>
-      <a href="#" class="menu">찾기</a>
-      <a href="#" class="menu">둘러보기</a>
-      <a href="#" class="menu">설정</a>
+    <div class="menu-bar">
+      <a href="#" class="menu" id="search">찾기</a>
+      <a href="#" class="menu" id="around">둘러보기</a>
+      <a href="#" class="menu" id="setting">설정</a>
     </div>
     <div class="dropdown-btn"><span class="material-symbols-outlined">
       menu
       </span></div>
   </nav>
   
-  <div class="contents-container"></div>
+  <div class="contents-container">
+    <div class="carousel">
+      <div class="carousel-left">
+        <span class="material-symbols-outlined carousel-left">
+        arrow_back_ios
+        </span>
+      </div>
+      <div class="carousel-right">
+        <span class="material-symbols-outlined carousel-right">
+          arrow_forward_ios
+          </span>
+      </div>
+    </div>
+  </div>
   <div class="container">
     <div id="modal-window" class="modal-window">
       <form action="POST" id="form">

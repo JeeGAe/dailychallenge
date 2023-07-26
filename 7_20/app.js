@@ -5,6 +5,7 @@ const container = document.querySelector('.container');
 const upload = document.querySelector('#file-upload');
 const dropdownBtn = document.querySelector('.dropdown-btn');
 const contentsContainer = document.querySelector('.contents-container');
+const menuBar = document.querySelector('.menu-bar');
 let products = [];
 let index = 0;
 let data = [];
@@ -175,7 +176,9 @@ function displayImg(e){
     `
     contentsContainer.append(contentContainer);
     index++;
-
+    if(contentsContainer.scrollWidth - contentsContainer.getBoundingClientRect().width > 2){
+      showCarousel();
+    }
     if(document.body.style.overflow == 'hidden'){
       document.body.style.overflow = '';
     }else{
@@ -221,15 +224,25 @@ function dropdownMenu(){
   }
 }
 
-function removeDropdownMenu(){
+function showCarousel(){
+  const carousel = contentsContainer.querySelector('.carousel');
+  const carouselRight = carousel.querySelector('.carousel-right');
+  carouselRight.style.left = `${contentsContainer.clientWidth-100}px`;
+  carousel.classList.add('show');
+}
+
+function windowResizing(){
   if(window.innerWidth >= 480){
     if(document.querySelector('.dropdown-menu'))
     document.querySelector('.dropdown-menu').remove();
   }
+  if(contentsContainer.scrollWidth - contentsContainer.getBoundingClientRect().width > 2){
+    showCarousel();
+  }
 }
 
 function infoContent(e){
-  if(e.target.className !== 'contents-container'){
+  if(e.target.className !== 'contents-container' && !e.target.className.includes('carousel')){
     api().then(() => {
       if(document.querySelector('.content-info')){
         document.querySelector('.content-info').remove();
@@ -255,12 +268,68 @@ function infoContent(e){
     if(document.querySelector('#loading-bar')){
       document.querySelector('#loading-bar').remove();
     }
-  }
+  }  
+}
 
-  
-  
-  
-  
+function showSettingMenu(){
+  const navBar = document.querySelector('nav');
+  //메뉴 바 밖으로 움직임
+  menuBar.style.transform = `translateX(${menuBar.getBoundingClientRect().width}px)`;
+  // 현재 다크모드에 따라 토글 온 오프 모양 설정
+  const isDark = document.body.classList.contains('dark')? 'on' : 'off';
+  // 셋팅 메뉴 생성
+  const settingMenu = document.createElement('div');
+  settingMenu.classList.add('setting-menu');
+  //settingMenu.classList.add('hidden');
+  settingMenu.innerHTML = `
+      <span id="dark-mode" class="material-symbols-outlined">
+        toggle_${isDark}
+      </span>
+      <button>완료</button>
+  `
+  navBar.append(settingMenu);
+  // 메뉴 바가 밖으로 나간뒤 셋팅 메뉴 들어옴
+  setTimeout(() => {
+    menuBar.classList.add('hidden');
+    settingMenu.classList.add('show');
+    setTimeout(() => settingMenu.style.transform = `translateX(-300px)`,100);
+  }, 200);
+}
+
+function showMenuBar(){
+  const settingMenu = document.querySelector('.setting-menu');
+  settingMenu.style.transform = `translateX(300px)`;
+  setTimeout(() => {
+    settingMenu.remove();
+    menuBar.classList.remove('hidden');
+    setTimeout(() => menuBar.style.transform = `translateX(0)`,100);
+  }, 200);
+}
+function settingMenuClick(event){
+  if(!event.target.classList.contains('setting-menu')){
+    if(event.target.tagName === 'BUTTON'){
+      // 세팅 메뉴 완료 버튼 누를시 메뉴바로 바꿈
+      showMenuBar()
+    }else if(event.target.id === 'dark-mode'){
+      // 다크모드 클릭시 설정
+      document.body.classList.toggle('dark');
+      const darkModeToggle = document.querySelector('#dark-mode');
+      const isDark = document.body.classList.contains('dark')? 'on' : 'off';
+      darkModeToggle.innerText = `toggle_${isDark}`;
+    }
+  }
+}
+
+function menuBarClick(event){
+  if(!event.target.classList.contains('menu-bar')){
+    // 설정 버튼 누를시 실행
+    if(event.target.id === 'setting'){
+      showSettingMenu();
+      //세팅 메뉴 안에 있는 버튼을 클릭시 실행
+      const settingMenu = document.querySelector('.setting-menu');
+      settingMenu.addEventListener('click', settingMenuClick);
+    }
+  }
 }
 
 
@@ -282,5 +351,6 @@ window.addEventListener("drop",function(e){
   e.preventDefault();    
 },false);
 dropdownBtn.addEventListener('click', dropdownMenu);
-window.addEventListener('resize', removeDropdownMenu);
+window.addEventListener('resize', windowResizing);
 contentsContainer.addEventListener('click', infoContent);
+menuBar.addEventListener('click', menuBarClick)
