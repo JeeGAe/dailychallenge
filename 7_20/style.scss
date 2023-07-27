@@ -13,13 +13,13 @@ body{
   margin: 0; padding: 0;
   box-sizing: border-box;
   background-color: rgb(231, 231, 231);
-  min-height: 300vh;
   width: 100%;
   &.dark{
     background-color: #333;
     color: #fff;
   }
 }
+// 모달창
 .container{
   position: fixed;
   left: 0; top: 0;
@@ -59,7 +59,7 @@ body{
   }
 }
 
-
+// 하단 업버튼
 #up-button{
   border: none;
   background-color: rgba(0, 0, 0, .3);
@@ -76,6 +76,8 @@ body{
   }
   border-radius: 50%;
 }
+
+// 헤더 
 nav{
   position: fixed;
   top: 0;
@@ -85,7 +87,6 @@ nav{
   justify-content: space-between;
   align-items: center;
   .menu-bar{
-    margin-top: 10px;
     gap: 5px;
     transition: .2s;
     position: relative;
@@ -94,7 +95,7 @@ nav{
       color: white;
       background-color: rgb(0, 186, 211);
       border-radius: 10px;
-      padding: 10px 20px;
+      padding: 5px 20px;
       
       font-weight: bold;
       font-size: 1.1rem;
@@ -131,11 +132,24 @@ nav{
       }
     }
   }
+  .search-menu{
+    transition: .2s;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    input{
+      font-size: 1.3rem;
+      
+    }
+  }
   
   .dropdown-btn{
     display: none;
   }
 }
+
+// css적용 우선순위를 위해 밖으로 뺌
 .menu-bar{
   display: flex;
 }
@@ -143,6 +157,9 @@ nav{
 .setting-menu{
   display: none;
 }
+
+// .search-menu{
+// }
 
 .open-btn{
   color: white;
@@ -163,7 +180,9 @@ nav{
   height: 300px;
 }
 
+// 컨텐츠
 .contents-container{
+  // position: relative;
   display: none;
   margin: 50px;
   margin-top: 100px;
@@ -197,14 +216,22 @@ nav{
   }
 }
 .carousel{
+  // position: absolute;
+  // top: 0;
+  // left: 0;
   width: 0;
   display: none;
   align-items: center;
   &-left{
-    left: 5px;
+    left: 35px;
+  }
+  &-right{
+    right: 70px;
   }
   &-right, &-left{
-    position: relative;
+    position: absolute;
+    // top: 0;
+    // left: 0;
     span{
       cursor: pointer;
       font-size: 3rem;
@@ -216,7 +243,26 @@ nav{
   }
   
 }
+// 상품 카드
+.product-card-container{
+  margin: 5rem auto;
+  width: 85%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .product-card{
+    margin-bottom: 5rem;
+    width: 45%;
+    height: 500px;
+    transition: 1s ease-in-out;
+  }
+}
+.up-move{
+  transform: translateY(-200px);
+  opacity: 0;
+}
 
+// 모달 인풋
 form{
   display: flex;
   flex-direction: column;
@@ -231,26 +277,7 @@ form{
   justify-content: center;
 }
 
-@media (max-width: 480px){
-  nav{
-    .menu{
-      display: none;
-    }
-    .dropdown-btn{
-      display: block;
-      span{
-        font-size: 2rem;
-        cursor: pointer;
-        margin-right: 10px;
-        margin-top: 5px;
-        color: rgb(0, 186, 211);
-      }
-    }
-    .setting-menu{
-      display: none //!important;
-    }
-  }
-}
+
 .dropdown-menu{
   display: block;
   //background-color: rgba(66, 66, 66, 0.3);
@@ -287,6 +314,8 @@ form{
     }
   }
 }
+
+//하단 미니 인포창
 .mini-info{
   position: fixed;
   left: 0;
@@ -322,12 +351,41 @@ form{
     } 
   }
 }
+//등록 상품 개수
+.notice{
+  position: fixed;
+  bottom: 0;
+  right: 200px;
+  font-size: 2rem;
+}
 .show{
   display: flex// !important;
 }
 .hidden{
   display: none// !important;
 }
+
+@media (max-width: 480px){
+  nav{
+    .menu{
+      display: none;
+    }
+    .dropdown-btn{
+      display: block;
+      span{
+        font-size: 2rem;
+        cursor: pointer;
+        margin-right: 10px;
+        margin-top: 5px;
+        color: rgb(0, 186, 211);
+      }
+    }
+    .setting-menu{
+      display: none //!important;
+    }
+  }
+}
+
 @keyframes move{
   from{
     transform: translateY(250px);

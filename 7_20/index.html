@@ -9,42 +9,54 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <nav>
-    <button id="basic-open-btn" class="open-btn">업로드</button>
-    <div class="menu-bar">
-      <a href="#" class="menu" id="search">찾기</a>
-      <a href="#" class="menu" id="around">둘러보기</a>
-      <a href="#" class="menu" id="setting">설정</a>
-    </div>
-    <div class="dropdown-btn"><span class="material-symbols-outlined">
-      menu
-      </span></div>
-  </nav>
+  <!-- 헤더 -->
+  <header>
+    <nav>
+      <button id="basic-open-btn" class="open-btn">업로드</button>
+      <div class="menu-bar">
+        <a href="#" class="menu" id="search">찾기</a>
+        <a href="#" class="menu" id="around">둘러보기</a>
+        <a href="#" class="menu" id="setting">설정</a>
+      </div>
+      <div class="dropdown-btn"><span class="material-symbols-outlined">
+        menu
+        </span></div>
+    </nav>
+  </header>
   
-  <div class="contents-container">
-    <div class="carousel">
-      <div class="carousel-left">
-        <span class="material-symbols-outlined carousel-left">
-        arrow_back_ios
-        </span>
-      </div>
-      <div class="carousel-right">
-        <span class="material-symbols-outlined carousel-right">
-          arrow_forward_ios
+  <main>
+    <!-- 컨텐츠 기본 컨테이너 -->
+    <div class="contents-container">
+      <div class="carousel">
+        <div class="carousel-left">
+          <span class="material-symbols-outlined carousel-left">
+          arrow_back_ios
           </span>
+        </div>
+        <div class="carousel-right">
+          <span class="material-symbols-outlined carousel-right">
+            arrow_forward_ios
+            </span>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="container">
-    <div id="modal-window" class="modal-window">
-      <form action="POST" id="form">
-        <div id="file-upload">fileupload</div>
-        <input type="text" placeholder="제목" name="title">
-        <input type="textarea" placeholder="내용" name="desc">
-        <button class="submit-btn">전송</button>
-      </form>
+
+    <!-- 무한스크롤 상품 카드 -->
+    <section class="product-card-container"></section>
+    
+    <!-- 모달창 -->
+    <div class="container">
+      <div id="modal-window" class="modal-window">
+        <form action="POST" id="form">
+          <div id="file-upload">fileupload</div>
+          <input type="text" placeholder="제목" name="title">
+          <input type="textarea" placeholder="내용" name="desc">
+          <button class="submit-btn">전송</button>
+        </form>
+      </div>
     </div>
-  </div>
+  </main>
+  
   <script src="./app.js"></script>
 </body>
 </html>

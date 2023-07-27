@@ -7,9 +7,12 @@ const dropdownBtn = document.querySelector('.dropdown-btn');
 const contentsContainer = document.querySelector('.contents-container');
 const menuBar = document.querySelector('.menu-bar');
 let products = [];
+let uploadedProducts = [];
 let index = 0;
 let data = [];
 let isfetching = false;
+let cardLineCount = 0;
+let showingCards = 0;
 
 async function api(){
   console.log("fetching..");
@@ -69,7 +72,12 @@ function moving(){
   openButton.style.left = parseInt(Math.random() * 500) + 'px';
 }
 
-function showUpScrollBtn(){
+function ScrollEvents(){
+  let scrollHeight = Math.max(
+    document.body.scrollHeight, document.documentElement.scrollHeight,
+    document.body.offsetHeight, document.documentElement.offsetHeight,
+    document.body.clientHeight, document.documentElement.clientHeight
+  );
   if(window.pageYOffset >= 50){
     const navTags = document.querySelectorAll('nav');
     for(tag of navTags){
@@ -102,6 +110,7 @@ function showUpScrollBtn(){
   if(document.querySelector('.content-info')?.getBoundingClientRect().top >= 50){
     document.querySelector('.mini-info')?.remove();
   }
+
   if(document.querySelector('.content-info')?.getBoundingClientRect().top < 50){
     if(document.querySelector('.mini-info') === null && !isfetching){
       isfetching = true;
@@ -134,6 +143,55 @@ function showUpScrollBtn(){
       })
     }
   }
+
+  // 브라우저 하단 근처까지 내려갔을 때 상품카드 생성
+  if(scrollHeight - 30 < window.pageYOffset + document.documentElement.clientHeight){
+    //uploadedProducts.length
+    // 만들어진 카드 개수
+    let cardCount = document.querySelectorAll('.product-card').length > 0 ? document.querySelectorAll('.product-card').length : 0;
+    // 만들어진 카드 라인 줄 수
+    cardLineCount = cardCount !== 0? parseInt(cardCount / 3) + 1 : null;
+    let needCard = uploadedProducts.length - cardCount;
+    if(needCard > 0){
+      
+      if(needCard < 2 || cardCount % 2 === 1){
+        while(needCard > 0){
+          const productCard = document.createElement('div');
+          productCard.classList.add('product-card');
+          productCard.classList.add('up-move');
+          productCard.innerHTML = `
+            <div><img src="${uploadedProducts[uploadedProducts.length- needCard].image_link}" alt="">
+            </div>
+            <div>
+              <h2>${uploadedProducts[uploadedProducts.length- needCard].name}</h2>
+            </div>
+          `;
+          const productCardContainer = document.querySelector('.product-card-container');
+          productCardContainer.append(productCard);
+          setTimeout(() => productCard.classList.remove('up-move'), 200);
+          needCard--;
+        }
+      }else{
+        for(let i = 0; i < 2; i++){
+          const productCard = document.createElement('div');
+          productCard.classList.add('product-card');
+          productCard.classList.add('up-move');
+          productCard.innerHTML = `
+            <div><img src="${uploadedProducts[uploadedProducts.length- needCard].image_link}" alt="">
+              </div>
+            <div>
+              <h2>${uploadedProducts[uploadedProducts.length- needCard].name}</h2>
+            </div>
+        `;
+          const productCardContainer = document.querySelector('.product-card-container');
+          productCardContainer.append(productCard);
+          setTimeout(() => productCard.classList.remove('up-move'), 200);
+          needCard--;
+        }
+      }
+
+    }
+  }
 }
 function upScroll(){
   document.documentElement.scrollIntoView({behavior: "smooth"});
@@ -155,7 +213,14 @@ function modalImg(event){
   upload.innerText = '';
 }
 
-function displayImg(e){
+function showCarousel(){
+  const carousel = contentsContainer.querySelector('.carousel');
+  const carouselRight = carousel.querySelector('.carousel-right');
+  carousel.classList.add('show');
+
+}
+// 메인 컨텐츠 업로드
+function uploadProduct(e){
   e.preventDefault();
   api()
   .then(()=> {
@@ -224,13 +289,6 @@ function dropdownMenu(){
   }
 }
 
-function showCarousel(){
-  const carousel = contentsContainer.querySelector('.carousel');
-  const carouselRight = carousel.querySelector('.carousel-right');
-  carouselRight.style.left = `${contentsContainer.clientWidth-100}px`;
-  carousel.classList.add('show');
-}
-
 function windowResizing(){
   if(window.innerWidth >= 480){
     if(document.querySelector('.dropdown-menu'))
@@ -240,8 +298,9 @@ function windowResizing(){
     showCarousel();
   }
 }
-
-function infoContent(e){
+// 컨텐츠 컨테이너 클릭시 실행
+function contentsContainerClick(e){
+  // 상품 클릭 시 상세 정보 창 생성
   if(e.target.className !== 'contents-container' && !e.target.className.includes('carousel')){
     api().then(() => {
       if(document.querySelector('.content-info')){
@@ -261,6 +320,26 @@ function infoContent(e){
       <p>${products[contentId].description}</p>
       </div>
       `;
+      
+      // 담아둔 상품 배열에 넣음
+      function isUploadedProducts(Id){
+        for(let uploadedProduct of uploadedProducts){
+          if(Id === uploadedProduct.id){
+            return true;
+            //console.log(product.id)
+          }
+        }
+        return false;
+      }
+      if(uploadedProducts.length === 0 || !isUploadedProducts(products[contentId].id)){
+        uploadedProducts.push(products[contentId]);
+        console.log(uploadedProducts);
+      }
+      const uploadedProductNotce = document.createElement('div');
+      uploadedProductNotce.classList.add('notice');
+      uploadedProductNotce.innerText = `등록된 상품은 ${uploadedProducts.length}개 입니다.`
+      document.body.append(uploadedProductNotce);
+
       products = [];
       contentsContainer.after(contentInfo);
       isfetching = false;
@@ -268,9 +347,24 @@ function infoContent(e){
     if(document.querySelector('#loading-bar')){
       document.querySelector('#loading-bar').remove();
     }
-  }  
+  }else if(e.target.className.includes('carousel')){ // 캐러셀 클릭시 실행
+    if(e.target.className.includes('right')){
+      contentsContainer.scrollBy({
+        top: 0,
+        left: 600,
+        behavior: 'smooth'
+      });
+    }else{
+      contentsContainer.scrollBy({
+        top: 0,
+        left: -600,
+        behavior: 'smooth'
+      });
+    }
+  }
 }
 
+// 세팅 메뉴 생성 
 function showSettingMenu(){
   const navBar = document.querySelector('nav');
   //메뉴 바 밖으로 움직임
@@ -289,27 +383,38 @@ function showSettingMenu(){
   `
   navBar.append(settingMenu);
   // 메뉴 바가 밖으로 나간뒤 셋팅 메뉴 들어옴
+  // 나중에 수정 해보자 (프로미스 활용)
+  // (new Promise((resolve, reject) => {
+  //   menuBar.classList.add('hidden');
+  //   settingMenu.classList.add('show');
+  //   return resolve();
+  // }))().then(() => {
+  //   setTimeout(() => settingMenu.style.transform = `translateX(-300px)`,100);
+  // })
+
   setTimeout(() => {
     menuBar.classList.add('hidden');
     settingMenu.classList.add('show');
-    setTimeout(() => settingMenu.style.transform = `translateX(-300px)`,100);
+    setTimeout(() => settingMenu.style.transform = `translateX(-300px)`,100)
   }, 200);
+  return settingMenu.addEventListener('click', settingMenuClick);
 }
-
-function showMenuBar(){
-  const settingMenu = document.querySelector('.setting-menu');
-  settingMenu.style.transform = `translateX(300px)`;
+// 기본 메뉴 보여줌
+function showMenuBar(elem){
+  elem.style.transform = `translateX(300px)`;
   setTimeout(() => {
-    settingMenu.remove();
+    elem.remove();
     menuBar.classList.remove('hidden');
     setTimeout(() => menuBar.style.transform = `translateX(0)`,100);
   }, 200);
 }
+// 세팅 메뉴창에서 클릭 시 작용하는 여러 이벤트
 function settingMenuClick(event){
   if(!event.target.classList.contains('setting-menu')){
     if(event.target.tagName === 'BUTTON'){
       // 세팅 메뉴 완료 버튼 누를시 메뉴바로 바꿈
-      showMenuBar()
+      const settingMenu = document.querySelector('.setting-menu');
+      showMenuBar(settingMenu);
     }else if(event.target.id === 'dark-mode'){
       // 다크모드 클릭시 설정
       document.body.classList.toggle('dark');
@@ -319,15 +424,42 @@ function settingMenuClick(event){
     }
   }
 }
+// 검색창에 입력시 실행
+function searchProduct(event){
+  console.log(event.target.value);
+}
 
+// 검색 메뉴 생성
+function showSearchMenu(){
+  if(!document.querySelector('.search-menu')){
+    const searchDiv = document.createElement('div');
+    searchDiv.classList.add('search-menu');
+    searchDiv.innerHTML = `
+      <input type="text" placeholder="제품명을 입력하세요."><a href="#">
+        <span class="material-symbols-outlined">
+        search
+        </span>
+      </a>
+    `
+    const menuBar = document.querySelector('.menu-bar');
+    menuBar.before(searchDiv);
+
+    setTimeout(() => {
+      searchDiv.style.opacity = '1';
+    }, 200);
+    return searchDiv.addEventListener('input', searchProduct);
+  }else{
+    // 메인메뉴의 찾기를 한번더 누르면 없어짐
+    document.querySelector('.search-menu').remove();
+  }
+}
+// 기본 메뉴 클릭시 발생 이벤트
 function menuBarClick(event){
   if(!event.target.classList.contains('menu-bar')){
-    // 설정 버튼 누를시 실행
     if(event.target.id === 'setting'){
       showSettingMenu();
-      //세팅 메뉴 안에 있는 버튼을 클릭시 실행
-      const settingMenu = document.querySelector('.setting-menu');
-      settingMenu.addEventListener('click', settingMenuClick);
+    }else if(event.target.id === 'search'){
+      showSearchMenu();
     }
   }
 }
@@ -336,9 +468,9 @@ function menuBarClick(event){
 openButton.addEventListener('click', modal);
 openButton.addEventListener('mouseenter', showToolTip);
 openButton.addEventListener('mouseleave', removeToolTip);
-submitButton.addEventListener('click', displayImg);
+submitButton.addEventListener('click', uploadProduct);
 //openButton.addEventListener('mouseover', moving);
-window.addEventListener('scroll', showUpScrollBtn);
+window.addEventListener('scroll', ScrollEvents);
 upload.addEventListener('dragenter', modalDarken);
 upload.addEventListener('dragleave', modalLeave);
 upload.addEventListener('drop', modalImg);
@@ -352,5 +484,5 @@ window.addEventListener("drop",function(e){
 },false);
 dropdownBtn.addEventListener('click', dropdownMenu);
 window.addEventListener('resize', windowResizing);
-contentsContainer.addEventListener('click', infoContent);
+contentsContainer.addEventListener('click', contentsContainerClick);
 menuBar.addEventListener('click', menuBarClick)
