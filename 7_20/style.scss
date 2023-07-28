@@ -62,12 +62,12 @@ body{
 // 하단 업버튼
 #up-button{
   border: none;
-  background-color: rgba(0, 0, 0, .3);
+  background-color: rgba(0, 119, 255, 0.356);
   position: fixed;
   bottom: 100px;
   right: 20px;
   &:hover{
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba(0, 119, 255, 0.556);
   }
   width: 70px;
   height: 70px;
@@ -87,6 +87,7 @@ nav{
   justify-content: space-between;
   align-items: center;
   .menu-bar{
+    min-width: 250px;
     gap: 5px;
     transition: .2s;
     position: relative;
@@ -105,12 +106,13 @@ nav{
     }
   }
   .setting-menu{
-    
+    min-width: 250px;
     margin: 0 10px;
     position: relative;
     right: -300px;
     transition: .2s;
     align-items: center;
+    justify-content: end;
     #dark-mode, button{
       cursor: pointer;
     }
@@ -289,6 +291,7 @@ form{
     margin-right: 10px;
   }
 }
+// 상세 설명 창
 .content-info{
   background-color: rgba(0, 0, 0, .3);
   margin: 0 auto;
@@ -355,8 +358,12 @@ form{
 .notice{
   position: fixed;
   bottom: 0;
-  right: 200px;
+  right: 0;
   font-size: 2rem;
+  background-color: rgba(0, 119, 255, 0.356);
+  color: #fff;
+  border-radius: 10px;
+  padding: 0 5px;
 }
 .show{
   display: flex// !important;
