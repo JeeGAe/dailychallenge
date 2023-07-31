@@ -75,6 +75,39 @@ function moving(){
   openButton.style.left = parseInt(Math.random() * 500) + 'px';
 }
 
+function calculateTime(past, now){
+  if(now - past < 1000*60){
+    console.log(now - past);
+    return '방금 전';
+  }else if(now - past < 1000*60*60){
+    console.log(now - past, parseInt((now - past) / (1000*60)));
+    // parseInt((now - past) / (1000*60));
+    return `${parseInt((now - past) / (1000*60))} 분 전`;
+  }else if(now - past < 1000*60*60*60){
+    console.log(now - past, parseInt((now - past) / (1000*60)));
+    return `${parseInt(((now - past) / 1000*60*60))} 시간 전`;
+  }
+}
+
+function createCard(needCard){
+  const time = new Date()
+  const productCard = document.createElement('div');
+  productCard.classList.add('product-card');
+  productCard.classList.add('up-move');
+  productCard.innerHTML = `
+    <div><img src="${uploadedProducts[uploadedProducts.length- needCard].image_link}" alt="">
+    </div>
+    <div class="card-text">
+      <h2>${uploadedProducts[uploadedProducts.length- needCard].name}</h2>
+      <p>${uploadedProducts[uploadedProducts.length- needCard].price}$</p>
+      <p>${calculateTime(uploadedProducts[uploadedProducts.length- needCard].time, time)} 등록한 상품</p>
+    </div>
+  `;
+  const productCardContainer = document.querySelector('.product-card-container');
+  productCardContainer.append(productCard);
+  setTimeout(() => productCard.classList.remove('up-move'), 200);
+}
+
 function ScrollEvents(){
   let scrollHeight = Math.max(
     document.body.scrollHeight, document.documentElement.scrollHeight,
@@ -153,26 +186,12 @@ function ScrollEvents(){
     // 만들어진 카드 개수 (주석됨)
     // let cardCount = document.querySelectorAll('.product-card').length > 0 ? document.querySelectorAll('.product-card').length : 0;
     // 만들어진 카드 라인 줄 수
-    cardLineCount = cardCount !== 0? parseInt(cardCount / 3) + 1 : null;
+    // cardLineCount = cardCount !== 0? parseInt(cardCount / 3) + 1 : null;
     let needCard = uploadedProducts.length - cardCount;
     if(needCard > 0){
-      
       if(needCard < 2 || cardCount % 2 === 1){
         while(needCard > 0){
-          const productCard = document.createElement('div');
-          productCard.classList.add('product-card');
-          productCard.classList.add('up-move');
-          productCard.innerHTML = `
-            <div><img src="${uploadedProducts[uploadedProducts.length- needCard].image_link}" alt="">
-            </div>
-            <div>
-              <h2>${uploadedProducts[uploadedProducts.length- needCard].name}</h2>
-              <p>${uploadedProducts[uploadedProducts.length- needCard].price}$</p>
-            </div>
-          `;
-          const productCardContainer = document.querySelector('.product-card-container');
-          productCardContainer.append(productCard);
-          setTimeout(() => productCard.classList.remove('up-move'), 200);
+          createCard(needCard)
           showingCards.push(uploadedProducts[uploadedProducts.length- needCard]);
           //copyShowingCards.push(uploadedProducts[uploadedProducts.length- needCard]);
           needCard--;
@@ -180,20 +199,7 @@ function ScrollEvents(){
         }
       }else{
         for(let i = 0; i < 2; i++){
-          const productCard = document.createElement('div');
-          productCard.classList.add('product-card');
-          productCard.classList.add('up-move');
-          productCard.innerHTML = `
-            <div><img src="${uploadedProducts[uploadedProducts.length- needCard].image_link}" alt="">
-              </div>
-            <div>
-              <h2>${uploadedProducts[uploadedProducts.length- needCard].name}</h2>
-              <p>${uploadedProducts[uploadedProducts.length- needCard].price}$</p>
-            </div>
-          `;
-          const productCardContainer = document.querySelector('.product-card-container');
-          productCardContainer.append(productCard);
-          setTimeout(() => productCard.classList.remove('up-move'), 200);
+          createCard(needCard)
           showingCards.push(uploadedProducts[uploadedProducts.length- needCard]);
           //copyShowingCards.push(uploadedProducts[uploadedProducts.length- needCard]);
           needCard--;
@@ -343,8 +349,9 @@ function contentsContainerClick(e){
         return false;
       }
       if(uploadedProducts.length === 0 || !isUploadedProducts(products[contentId].id)){
+        products[contentId].time = new Date()
         uploadedProducts.push(products[contentId]);
-        //console.log(uploadedProducts);
+        console.log(uploadedProducts);
       }
       // 현재 담겨진 상품 개수 출력
       if(document.querySelector('.notice') !== null){
@@ -399,13 +406,13 @@ function showSettingMenu(){
   navBar.append(settingMenu);
   // 메뉴 바가 밖으로 나간뒤 셋팅 메뉴 들어옴
   // 나중에 수정 해보자 (프로미스 활용)
-  // (new Promise((resolve, reject) => {
-  //   menuBar.classList.add('hidden');
-  //   settingMenu.classList.add('show');
-  //   return resolve();
-  // }))().then(() => {
-  //   setTimeout(() => settingMenu.style.transform = `translateX(-300px)`,100);
-  // })
+  (new Promise((resolve, reject) => {
+    menuBar.classList.add('hidden');
+    settingMenu.classList.add('show');
+    resolve();
+  }))().then(() => {
+    setTimeout(() => settingMenu.style.transform = `translateX(-300px)`,100);
+  })
 
   setTimeout(() => {
     menuBar.classList.add('hidden');
@@ -441,53 +448,49 @@ function settingMenuClick(event){
 }
 // 카드를 재정렬
 function arrangeShowCard(product){
+  const time = new Date();
   const productCard = document.createElement('div');
-    productCard.classList.add('product-card');
-    productCard.innerHTML = `
-      <div><img src="${product.image_link}" alt="">
-        </div>
-      <div>
-        <h2>${product.name}</h2>
-        <p>${product.price}$</p>
+  productCard.classList.add('product-card');
+  productCard.innerHTML = `
+    <div><img src="${product.image_link}" alt="">
       </div>
-    `;
-    const productCardContainer = document.querySelector('.product-card-container');
-    productCardContainer.append(productCard);
+    <div class="card-text">
+      <h2>${product.name}</h2>
+      <p>${product.price}$</p>
+      <p>${calculateTime(product.time, time)} 등록한 상품</p>
+    </div>
+  `;
+  const productCardContainer = document.querySelector('.product-card-container');
+  productCardContainer.append(productCard);
 }
-function refactoringShowingCards(keyword = ''){
+function refactoringShowingCards(keyword){
   copyShowingCards = [...showingCards];
+  let refactoredCards = [];
   if(keyword !== ''){
-    copyShowingCards.filter(copyShowingCard => {
-      copyShowingCard.name.toLowerCase().includes(keyword.toLowerCase())
+    refactoredCards = copyShowingCards.filter(copyShowingCard => {
+      return copyShowingCard.name.toLowerCase().includes(keyword.toLowerCase());
     })
+  }else{
+    refactoredCards = copyShowingCards;
   }
   if(isPrice){
     // 정렬할 배열에 기존 카드 복사 후 가격순 정렬
-    copyShowingCards.sort((a, b) => {
+    refactoredCards.sort((a, b) => {
       return a.price - b.price;
     })
   }
-  return copyShowingCards;
+
+  return refactoredCards;
 }
 // 검색 기능 구현
 function searchProduct(event){
-  // 보여진 상품 카드중 검색한것과 일치하는것을 필터 배열에 푸쉬
   const Allcards = document.querySelectorAll('.product-card');
   Allcards.forEach(card => card.remove()); //카드 초기화
-  
-  if(event.target.value !== ''){
-    // 카피 배열 필터링
-    let copyShowingCards = refactoringShowingCards(event.target.value);
-    // 필터된 배열로 다시 카드 생성
-    copyShowingCards.forEach(copyShowingCard => {
-      arrangeShowCard(copyShowingCard);
-    });
-  }else if(event.target.value === ''){
-    showingCards.forEach(showingCard => {
-      arrangeShowCard(showingCard);
-    })
-  }
-  
+  // 카드 필터링
+  let copyShowingCards = refactoringShowingCards(event.target.value);
+  copyShowingCards.forEach(copyShowingCard => {
+    arrangeShowCard(copyShowingCard);
+  });
 }
 
 // 검색 메뉴 생성
@@ -496,11 +499,7 @@ function showSearchMenu(){
     const searchDiv = document.createElement('div');
     searchDiv.classList.add('search-menu');
     searchDiv.innerHTML = `
-      <input type="text" placeholder="제품명을 입력하세요."><a href="#">
-        <span class="material-symbols-outlined">
-        search
-        </span>
-      </a>
+      <input type="text" placeholder="제품명을 입력하세요.">
     `
     const menuBar = document.querySelector('.menu-bar');
     menuBar.before(searchDiv);

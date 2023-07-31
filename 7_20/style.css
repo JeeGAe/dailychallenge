@@ -243,10 +243,22 @@ nav .dropdown-btn {
   justify-content: space-between;
 }
 .product-card-container .product-card {
+  background-color: rgba(0, 119, 255, 0.356);
   margin-bottom: 5rem;
   width: 45%;
   height: 500px;
   transition: 1s ease-in-out;
+  border-radius: 15px;
+}
+.product-card-container .product-card img {
+  width: 100%;
+  border-radius: 15px 15px 0 0;
+}
+.product-card-container .product-card .card-text {
+  padding-left: 10px;
+}
+.product-card-container .product-card .card-text p {
+  margin: 1px;
 }
 
 .up-move {
