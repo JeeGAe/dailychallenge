@@ -16,7 +16,7 @@ const bookShema = new Schema({
   author : {
     type : String,
     required : true,
-    trrm: true
+    trim: true
   },
   category : {
     type : String,
@@ -47,7 +47,7 @@ module.exports = Book;
 // Book 데이터 생성 테스트
 // const book1 = new Book({
 //   title : '해리포터',
-//   release : new Date(1997-6-26),
+//   release : new Date('1997-6-26'),
 //   author : 'j.k. 롤링',
 //   category : 'novel',
 //   borrowUserId : '111111111111111111111111', 

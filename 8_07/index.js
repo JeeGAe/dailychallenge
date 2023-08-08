@@ -34,6 +34,10 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(logger);
 // app.use('/users/:uname/books', saveUser);
+app.get('/library', async (req, res) => {
+  const response = await axios.get('mongodb://127.0.0.1:27017/library');
+  // res.send(response.data);
+})
 
 app.post('/create/user', (req, res) => {
   console.log(req.body);
@@ -49,11 +53,28 @@ app.post('/create/user', (req, res) => {
   
   user1.save()
   .then((() => {console.log('user data created!!')}))
-  .catch(e => console.log(`Failed to create book data : ${e}`));
+  .catch(e => console.log(`Failed to create user data : ${e}`));
 
   res.json({ name : req.body.name, email : req.body.email, userId : req.body.userId, password : req.body.password, birth : req.body.birth, borrwedBook : req.body.borrowedBook});
 })
 
+app.post('/create/book', (req, res) => {
+  console.log(req.body);
+  
+  const book = new bookData({
+    title : req.body.title,
+    release : req.body.release,
+    author : req.body.author,
+    category : req.body.category,
+    borrowUserId : req.body.borrowUserId,
+  })
+  
+  book.save()
+  .then((() => {console.log('book data created!!')}))
+  .catch(e => console.log(`Failed to create book data : ${e}`));
+
+  res.json({ title : req.body.title, release : req.body.release, author : req.body.author, category : req.body.category, borrowUserId : req.body.borrowUserId});
+})
 // router.post('/', (req, res, next) => {
 //   console.log(req.query.name);
 //   if(req.query.name){
