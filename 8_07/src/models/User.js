@@ -8,14 +8,11 @@ const userSchema = new Schema({
     required : true,
     trim : true,
   },
-  userId : {
-    type : String,
-    required : true,
-  },
   email : {
     type : String,
     required : true,
     trim : true,
+    unique : true,
   },
   password : {
     type : String,
@@ -43,7 +40,7 @@ const userSchema = new Schema({
 })
 
 const User = mongoose.model('User', userSchema);
-module.exports.User = User;
+module.exports = User;
 
 // User 데이터 생성 테스트
 // const user1 = new User({
