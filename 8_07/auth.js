@@ -8,8 +8,11 @@ const generateToken = (user) => {
     userId : user.userId,
     email : user.email,
     password : user.password,
+    birth : user.birth,
+    borrowedBook : user.borrowedBook,
     isAdmin : user.isAdmin,
     createdAt : user.createdAt,
+    lastModifiedAt : user.lastModifiedAt,
   },
   config.JWT_SECRET,
   {

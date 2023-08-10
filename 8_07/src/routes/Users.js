@@ -56,7 +56,8 @@ router.put('/:id', isAuth, expressAsyncHandler(async (req, res, next) => {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email; // 유니크 값인데 이미 있는 이메일 값으로 수정 하면 ??
     user.password = req.body.password || user.password;
-    user.lastModifiedAt = new Date.now()
+    user.isAdmin = req.body.isAdmin || user.isAdmin;
+    user.lastModifiedAt = Date.now();
     const updateUser = await user.save();
     const { name, email, birth, borrowedBook, isAdmin, createdAt, lastModifiedAt } = updateUser;
     res.json({
