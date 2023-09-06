@@ -6,9 +6,8 @@ class SortBtn extends Component{
   }
 
   render() {
-    console.log(this.props)
     return (
-      <button className='sort-btns' onClick={this.props.priceToggleState}>가격</button>
+      <button className='sort-btns' onClick={this.props.priceToggleState}>{this.props.priceToggle? "기본순":"가격순"}</button>
     )
   }
 }

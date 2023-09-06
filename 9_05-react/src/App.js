@@ -83,19 +83,39 @@ import ProductList from './ProductList';
 
 class App extends Component{
   state = {
-    priceToggle : false
+    priceToggle : false,
+    products : [],
+    copyProducts : [],
+    search : null
   }
 
   priceToggleState = () => {
     this.setState({ priceToggle : !this.state.priceToggle });
   }
 
+  getSearch = (keyword) => {
+    console.log(keyword)
+    let copyProducts = [...this.state.copyProducts];
+    const filterProducts = copyProducts.filter(product => {
+      return product.name.toLowerCase().includes(keyword.toLowerCase())
+    })
+    console.log(filterProducts)
+    this.setState({ search : keyword });
+    this.setState({ products : filterProducts })
+  }
+
+  getProducts = (products) => {
+    this.setState({ products : products, copyProducts : products })
+  }
+
+  
+
   render() {
-    const { priceToggle } = this.state;
+    const { priceToggle, products, search } = this.state;
     return (
       <>
-        <Nav priceToggle={priceToggle} priceToggleState={this.priceToggleState}></Nav>
-        <ProductList priceToggle={priceToggle}></ProductList>
+        <Nav priceToggle={priceToggle} priceToggleState={this.priceToggleState} getSearch={this.getSearch} search={search}></Nav>
+        <ProductList priceToggle={priceToggle} products={products} getProducts={this.getProducts}></ProductList>
         
       </>
     )

@@ -9,7 +9,7 @@ class ProductList extends Component{
   render(){
     return (
       <div className='root'>
-        <Product priceToggle={this.props.priceToggle}></Product>
+        <Product priceToggle={this.props.priceToggle} products={this.props.products} getProducts={this.props.getProducts}></Product>
       </div>
     )
   }
