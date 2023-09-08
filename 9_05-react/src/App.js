@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 // import flashCards from './dummyDate';
 import Nav from './Nav';
 import ProductList from './ProductList';
+import ScrollToUp from './ScollToUp';
 
 // class App extends Component{
 //   state = {
@@ -116,7 +117,7 @@ class App extends Component{
       <>
         <Nav priceToggle={priceToggle} priceToggleState={this.priceToggleState} getSearch={this.getSearch} search={search}></Nav>
         <ProductList priceToggle={priceToggle} products={products} getProducts={this.getProducts}></ProductList>
-        
+        <ScrollToUp/>
       </>
     )
   }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SuccessFetch from './SuccessFetch';
 
 class Product extends Component{
   constructor(props){
@@ -7,7 +8,9 @@ class Product extends Component{
     this.state = {
       loading : true,
     }
+
   }
+
 
   componentDidMount(){
     const API_URL = 'http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline'
@@ -65,6 +68,7 @@ class Product extends Component{
               </div>
             )
           })}
+          {!loading && <SuccessFetch></SuccessFetch>}
         </>
       )
     }else{

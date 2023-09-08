@@ -44,7 +44,7 @@
   left: 0;
   top: 0;
   right: 0;
-  box-shadow: 1px 1px 5px 5px darkgray;
+  /* box-shadow: 1px 1px 5px 5px darkgray; */
   background: white;
   z-index: 1;
 
@@ -105,4 +105,37 @@
   font-size: 0.9rem;
   text-align: center;
   margin-top: 15px;
+}
+.menus{
+  width: 100px;
+  background-color: burlywood;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.dropmenu{
+  display: none;
+  position: fixed;
+  top: 70px;
+  color: #fff;
+  width: 100px;
+  background-color: rgba(0, 0, 0, .3);
+}
+
+
+.SuccessFetch{
+  display: none;
+  position: fixed;
+  bottom: 0; right: 0;
+}
+
+.ScrollToUp{
+  display: none;
+  position: fixed;
+  bottom: 15%;
+  right: 3%;
+}
+.open{
+  display: block;
 }
